@@ -2,18 +2,18 @@
 
 Interactive sales dashboard built on a three-table order dataset: 1,000 order lines, 1,000 customers and 48 products, covering January 2019 to August 2022 across the United States, Ireland and the United Kingdom.
 
-![Dashboard](images/dashboard.png)
+!\[Dashboard](images/dashboard.png)
 
 ## Summary
 
-| Metric | Result |
-|---|---|
-| Total sales | $45,134 |
-| Largest market | United States, 79.0% of revenue |
-| Top revenue pack size | 2.5 kg, 52.7% of revenue |
-| Coffee type spread | 20.0% (Robusta) to 27.3% (Excelsa) |
-| Strongest full year | 2021, $13,766 |
-| Loyalty card holders | 46.3% of revenue |
+|Metric|Result|
+|-|-|
+|Total sales|$45,134|
+|Largest market|United States, 79.0% of revenue|
+|Top revenue pack size|2.5 kg, 52.7% of revenue|
+|Coffee type spread|20.0% (Robusta) to 27.3% (Excelsa)|
+|Strongest full year|2021, $13,766|
+|Loyalty card holders|46.3% of revenue|
 
 ## Background
 
@@ -23,30 +23,30 @@ This project applies the same standard to commercial data. The domain is differe
 
 ## Business questions
 
-- How are sales trending over time, and which year performed best?
-- Which markets, coffee types and roast types drive revenue?
-- How much does pack size matter to revenue?
-- Who are the highest-value customers?
-- Do loyalty card holders spend more than other customers?
+* How are sales trending over time, and which year performed best?
+* Which markets, coffee types and roast types drive revenue?
+* How much does pack size matter to revenue?
+* Who are the highest-value customers?
+* Do loyalty card holders spend more than other customers?
 
 ## Data model
 
 The source workbook is a simple star schema. `orders` is the fact table and holds only keys and quantity; `customers` and `products` are dimension tables.
 
-| Table | Rows | Key | Content |
-|---|---:|---|---|
-| orders | 1,000 | Order ID + Product ID | Order date, customer ID, product ID, quantity |
-| customers | 1,000 | Customer ID | Name, contact details, city, country, loyalty card |
-| products | 48 | Product ID | Coffee type, roast, pack size (kg), unit price, price per 100 g, profit |
+|Table|Rows|Key|Content|
+|-|-:|-|-|
+|orders|1,000|Order ID + Product ID|Order date, customer ID, product ID, quantity|
+|customers|1,000|Customer ID|Name, contact details, city, country, loyalty card|
+|products|48|Product ID|Coffee type, roast, pack size (kg), unit price, price per 100 g, profit|
 
-Full field definitions are in [docs/data_dictionary.md](docs/data_dictionary.md).
+Full field definitions are in [docs/data\_dictionary.md](docs/data_dictionary.md).
 
 ## Data quality checks
 
-- Referential integrity: every Customer ID and Product ID in `orders` matches its dimension table, so no lookup returns an error.
-- Duplicates: no fully duplicated rows. The 1,000 lines belong to 957 orders because multi-product orders appear once per product, which is expected rather than a data error.
-- Missing values: none in `orders` or `products`. In `customers`, 204 emails and 130 phone numbers are blank. Blank emails would surface as 0 through XLOOKUP, so the email formula returns an empty string instead.
-- Coverage: 2022 contains January to August only, so it is excluded from year-on-year comparison.
+* Referential integrity: every Customer ID and Product ID in `orders` matches its dimension table, so no lookup returns an error.
+* Duplicates: no fully duplicated rows. The 1,000 lines belong to 957 orders because multi-product orders appear once per product, which is expected rather than a data error.
+* Missing values: none in `orders` or `products`. In `customers`, 204 emails and 130 phone numbers are blank. Blank emails would surface as 0 through XLOOKUP, so the email formula returns an empty string instead.
+* Coverage: 2022 contains January to August only, so it is excluded from year-on-year comparison.
 
 ## Method
 
@@ -68,23 +68,11 @@ Every formula is written out in [docs/formulas.md](docs/formulas.md).
 
 **Sales were flat, then grew.** 2019 ($12,187) and 2020 ($12,118) are almost level, and 2021 rose 13.6% to $13,766. 2022 reached $7,063 by August.
 
-## Screenshots
-
-Enriched orders table after integration and transformation:
-
-![Orders table](images/orders_table.png)
-
-PivotTables feeding the dashboard:
-
-![Pivot tables](images/pivot_tables.png)
-
-![Pivot tables continued](images/pivot_tables1.png)
-
 ## Limitations and next steps
 
-- Findings are based on revenue. The products table includes a profit field, and the next step is margin by pack size and coffee type to check whether the 2.5 kg pack is the most profitable line or only the largest.
-- The loyalty comparison needs customer-level metrics (average order value, orders per customer, repeat purchase rate).
-- Country by product analysis would show whether the US pattern holds in Ireland and the UK, which matters for any growth decision outside the US.
+* Findings are based on revenue. The products table includes a profit field, and the next step is margin by pack size and coffee type to check whether the 2.5 kg pack is the most profitable line or only the largest.
+* The loyalty comparison needs customer-level metrics (average order value, orders per customer, repeat purchase rate).
+* Country by product analysis would show whether the US pattern holds in Ireland and the UK, which matters for any growth decision outside the US.
 
 ## Repository structure
 
@@ -92,22 +80,21 @@ PivotTables feeding the dashboard:
 excel-coffee-sales-dashboard/
 ├── README.md
 ├── data/
-│   └── coffeeOrdersData_raw.xlsx          source data, three sheets
+│   └── coffeeOrdersData\\\_raw.xlsx          source data, three sheets
 ├── workbook/
-│   └── coffeeOrdersData_dashboard.xlsx    finished workbook and dashboard
+│   └── coffeeOrdersData\\\_dashboard.xlsx    finished workbook and dashboard
 ├── docs/
-│   ├── data_dictionary.md                 field definitions and data quality notes
+│   ├── data\\\_dictionary.md                 field definitions and data quality notes
 │   └── formulas.md                        every formula with explanation
 └── images/
     ├── dashboard.png
-    ├── orders_table.png
-    ├── pivot_tables.png
-    └── pivot_tables1.png
+    ├── orders\\\_table.png
+    └── pivot\\\_tables.png
 ```
 
 ## How to use
 
-Download `workbook/coffeeOrdersData_dashboard.xlsx` and open the Dashboard sheet in Excel 2021 or Microsoft 365 (XLOOKUP and the timeline need a recent version). Filter with the timeline and slicers.
+Download `workbook/coffeeOrdersData\\\_dashboard.xlsx` and open the Dashboard sheet in Excel 2021 or Microsoft 365 (XLOOKUP and the timeline need a recent version). Filter with the timeline and slicers.
 
 ## Attribution
 
@@ -119,3 +106,4 @@ Nagendra Kumar. Retired Sergeant, Indian Air Force (20 years, radio communicatio
 
 LinkedIn: [linkedin.com/in/nagendrakumartripathi](https://www.linkedin.com/in/nagendrakumartripathi)
 Email: nagendratripathi89@gmail.com
+
